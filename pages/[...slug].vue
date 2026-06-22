@@ -2,14 +2,9 @@
   <div>
     <template v-if="page">
       <article class="article">
-        <div class="article-eyebrow">
-          {{ page.category === 'reading' ? '读书笔记' : '生活随想' }}
-        </div>
+        <div class="article-eyebrow">{{ page.category === 'reading' ? '读书笔记' : '生活随想' }}</div>
         <h1>{{ page.title }}</h1>
-
-        <div class="article-meta">
-          <span>{{ page.date }}</span>
-        </div>
+        <div class="article-meta">{{ page.date }}</div>
 
         <div v-if="page.tags?.length" class="article-tags">
           <span v-for="t in page.tags" :key="t" class="tag">{{ t }}</span>

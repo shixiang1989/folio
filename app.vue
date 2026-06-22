@@ -1,14 +1,5 @@
 <template>
   <div :class="{ dark: isDark }">
-    <!-- ── Background Orbs ───────────────────────────────── -->
-    <div class="bg-orbs" aria-hidden="true">
-      <div class="orb orb-1"></div>
-      <div class="orb orb-2"></div>
-      <div class="orb orb-3"></div>
-      <div class="orb orb-4"></div>
-    </div>
-
-    <!-- ── Navigation ────────────────────────────────────── -->
     <nav class="nav">
       <div class="nav-inner">
         <NuxtLink to="/" class="nav-logo">
@@ -20,21 +11,17 @@
           <NuxtLink to="/articles/life" class="nav-link">生活</NuxtLink>
           <NuxtLink to="/about" class="nav-link">关于</NuxtLink>
         </div>
-        <div class="nav-actions">
-          <button class="theme-btn" @click="toggleTheme" :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'">
-            {{ isDark ? '☀' : '☾' }}
-          </button>
-        </div>
+        <button class="theme-btn" @click="toggleTheme" :aria-label="isDark ? 'Light mode' : 'Dark mode'">
+          {{ isDark ? '☀' : '☾' }}
+        </button>
       </div>
     </nav>
     <div class="nav-spacer"></div>
 
-    <!-- ── Main Content ──────────────────────────────────── -->
     <main>
       <NuxtPage />
     </main>
 
-    <!-- ── Footer ────────────────────────────────────────── -->
     <footer class="footer">
       <div class="footer-line"><hr></div>
       <p>Folio &mdash; 一本关于阅读与生活的杂志</p>
