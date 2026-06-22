@@ -3,7 +3,7 @@
     <template v-if="page">
       <article class="article-page">
         <header class="article-header">
-          <div class="article-card-category" style="text-align:center;margin-bottom:0.5rem;">
+          <div class="article-card-category">
             {{ page.category === 'reading' ? '读书笔记' : '生活随想' }}
           </div>
           <h1>{{ page.title }}</h1>
@@ -20,18 +20,24 @@
           class="article-featured-image"
         />
 
-        <section class="article-content">
-          <div class="prose">
-            <ContentRenderer :value="page" />
-          </div>
+        <section class="prose">
+          <ContentRenderer :value="page" />
         </section>
+
+        <footer class="article-footer">
+          <NuxtLink to="/">
+            ← 返回首页
+          </NuxtLink>
+        </footer>
       </article>
     </template>
 
-    <div v-else-if="!pending" class="not-found">
+    <div v-else-if="!pending" class="empty-state">
       <h2>404</h2>
       <p>找不到这篇文章</p>
-      <NuxtLink to="/" style="color: var(--color-terracotta)">← 返回首页</NuxtLink>
+      <NuxtLink to="/" style="color: var(--accent); margin-top: 16px; display: inline-block;">
+        ← 返回首页
+      </NuxtLink>
     </div>
   </div>
 </template>
@@ -43,7 +49,6 @@ const { data: page, pending } = await useAsyncData(route.path, () =>
   queryCollection('content').path(route.path).first()
 )
 
-// Filter out index and listing pages from the catch-all
 if (page.value && (page.value.path === '/' || page.value.path === '/about')) {
   page.value = null
 }

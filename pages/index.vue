@@ -1,22 +1,18 @@
 <template>
   <div>
     <!-- Hero -->
-    <section class="magazine-hero">
-      <div class="hero-issue">2026 · Vol. 1</div>
+    <section class="hero">
+      <div class="hero-label">2026 · Vol. 1</div>
       <h1>阅读与生活<br>的杂志</h1>
-      <p class="hero-tagline">
+      <p>
         在书页间发现世界，在生活里记录时光。一本慢阅读的私人杂志。
       </p>
     </section>
 
-    <div class="ornament">
-      <span>✦</span>
-    </div>
-
     <!-- Recent Articles -->
     <div class="section-header">
-      <h2>📖 最近笔记</h2>
-      <p class="section-desc">最近更新的读书笔记与生活随想</p>
+      <h2>最近笔记</h2>
+      <p>最近更新的读书笔记与生活随想</p>
     </div>
 
     <div class="article-grid">

@@ -1,15 +1,10 @@
 <template>
   <div>
-    <!-- Hero -->
-    <section class="magazine-hero">
-      <div class="hero-issue">Articles</div>
+    <section class="hero">
+      <div class="hero-label">{{ categoryLabel }}</div>
       <h1>{{ pageTitle }}</h1>
-      <p class="hero-tagline">{{ pageDesc }}</p>
+      <p>{{ pageDesc }}</p>
     </section>
-
-    <div class="ornament">
-      <span>✦</span>
-    </div>
 
     <div class="article-grid">
       <NuxtLink
@@ -35,8 +30,9 @@
       </NuxtLink>
     </div>
 
-    <div v-if="articles.length === 0" class="not-found">
-      <p style="color: var(--color-muted)">还没有文章，敬请期待。</p>
+    <div v-if="articles.length === 0" class="empty-state">
+      <h2>—</h2>
+      <p>还没有文章，敬请期待。</p>
     </div>
   </div>
 </template>
@@ -45,10 +41,11 @@
 const route = useRoute()
 const category = (route.params.category as string) || 'all'
 
-const pageTitle = category === 'reading' ? '📚 读书笔记' : '🌿 生活随想'
+const pageTitle = category === 'reading' ? '读书笔记' : '生活随想'
 const pageDesc = category === 'reading'
   ? '书页之间，思想与灵魂的对话。'
   : '生活里的光与影，琐碎与诗意。'
+const categoryLabel = category === 'reading' ? 'Reading Notes' : 'Life'
 
 const { data: articles } = await useAsyncData(`articles-${category}`, () => {
   let query = queryCollection('content').where('path', 'LIKE', '/articles/%')
