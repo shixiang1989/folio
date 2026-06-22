@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ dark: isDark }">
+  <div>
     <nav class="nav">
       <div class="nav-inner">
         <NuxtLink to="/" class="nav-logo">
@@ -11,9 +11,6 @@
           <NuxtLink to="/articles/life" class="nav-link">生活</NuxtLink>
           <NuxtLink to="/about" class="nav-link">关于</NuxtLink>
         </div>
-        <button class="theme-btn" @click="toggleTheme" :aria-label="isDark ? 'Light mode' : 'Dark mode'">
-          {{ isDark ? '☀' : '☾' }}
-        </button>
       </div>
     </nav>
     <div class="nav-spacer"></div>
@@ -30,25 +27,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref, onMounted } from 'vue'
 
-const isDark = ref(false)
-
-function toggleTheme() {
-  isDark.value = !isDark.value
-  localStorage.setItem('folio-theme', isDark.value ? 'dark' : 'light')
-}
-
-onMounted(() => {
-  const saved = localStorage.getItem('folio-theme')
-  if (saved === 'dark') {
-    isDark.value = true
-  } else if (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    isDark.value = true
-  }
-})
-</script>
 
 <style>
 @import '~/assets/css/main.css';
