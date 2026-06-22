@@ -2,9 +2,7 @@
   <div>
     <nav class="nav">
       <div class="nav-inner">
-        <NuxtLink to="/" class="nav-logo">
-          Fol<span>i</span>o
-        </NuxtLink>
+        <NuxtLink to="/" class="nav-logo">Fol<span>i</span>o</NuxtLink>
         <div class="nav-links">
           <NuxtLink to="/" class="nav-link" exact-active-class="router-link-active">首页</NuxtLink>
           <NuxtLink to="/articles/reading" class="nav-link">读书</NuxtLink>
@@ -14,21 +12,11 @@
       </div>
     </nav>
     <div class="nav-spacer"></div>
-
-    <main>
-      <NuxtPage />
-    </main>
-
-    <footer class="footer">
-      <div class="footer-line"><hr></div>
-      <p>Folio &mdash; 一本关于阅读与生活的杂志</p>
-      <p style="margin-top:4px">&copy; {{ new Date().getFullYear() }}</p>
+    <main><NuxtPage /></main>
+    <footer class="site-footer">
+      <p>Folio &mdash; 一本关于阅读与生活的杂志 &middot; &copy; {{ new Date().getFullYear() }}</p>
     </footer>
   </div>
 </template>
 
-
-
-<style>
-@import '~/assets/css/main.css';
-</style>
+<style>@import '~/assets/css/main.css';</style>
