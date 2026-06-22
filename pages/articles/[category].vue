@@ -1,45 +1,48 @@
 <template>
   <div>
+    <!-- ── Hero ──────────────────────────────────────────── -->
     <section class="hero">
-      <div class="hero-label">{{ categoryLabel }}</div>
+      <div class="hero-eyebrow">{{ categoryLabel }}</div>
       <h1>{{ pageTitle }}</h1>
       <p>{{ pageDesc }}</p>
     </section>
 
+    <div class="divider"><hr></div>
+
+    <!-- ── Article Grid ──────────────────────────────────── -->
     <div class="article-grid">
       <NuxtLink
-        v-for="article in articles"
-        :key="article.path"
-        :to="article.path"
-        class="article-card"
+        v-for="a in articles"
+        :key="a.path"
+        :to="a.path"
+        class="card"
       >
-        <div v-if="article.cover" class="article-card-cover-wrapper">
-          <img :src="article.cover" :alt="article.title" class="article-card-cover" />
-        </div>
-        <div v-else class="article-card-cover-placeholder">
-          {{ article.category === 'reading' ? '📚' : '🌿' }}
-        </div>
-        <div class="article-card-body">
-          <div class="article-card-category">
-            {{ article.category === 'reading' ? '读书笔记' : '生活随想' }}
+        <div class="card-cover">
+          <img v-if="a.cover" :src="a.cover" :alt="a.title" />
+          <div v-else class="card-cover-placeholder">
+            {{ a.category === 'reading' ? '📖' : '🌿' }}
           </div>
-          <h3>{{ article.title }}</h3>
-          <p>{{ article.description }}</p>
-          <div class="article-card-meta">{{ article.date }}</div>
+          <span class="card-cover-tag">{{ a.category === 'reading' ? '读书笔记' : '生活随想' }}</span>
+        </div>
+        <div class="card-body">
+          <h3>{{ a.title }}</h3>
+          <p>{{ a.description }}</p>
+          <div class="card-meta"><span>{{ a.date }}</span></div>
         </div>
       </NuxtLink>
     </div>
 
-    <div v-if="articles.length === 0" class="empty-state">
-      <h2>—</h2>
+    <div v-if="articles.length === 0" class="empty">
+      <div class="empty-num">—</div>
       <p>还没有文章，敬请期待。</p>
+      <NuxtLink to="/" class="back-link">← 返回首页</NuxtLink>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 const route = useRoute()
-const category = (route.params.category as string) || 'all'
+const category = route.params.category as string
 
 const pageTitle = category === 'reading' ? '读书笔记' : '生活随想'
 const pageDesc = category === 'reading'
@@ -48,14 +51,9 @@ const pageDesc = category === 'reading'
 const categoryLabel = category === 'reading' ? 'Reading Notes' : 'Life'
 
 const { data: articles } = await useAsyncData(`articles-${category}`, () => {
-  let query = queryCollection('content').where('path', 'LIKE', '/articles/%')
-
-  if (category === 'reading') {
-    query = query.where('category', '=', 'reading')
-  } else if (category === 'life') {
-    query = query.where('category', '=', 'life')
-  }
-
-  return query.order('date', 'DESC').all()
+  let q = queryCollection('content').where('path', 'LIKE', '/articles/%')
+  if (category === 'reading') q = q.where('category', '=', 'reading')
+  else if (category === 'life') q = q.where('category', '=', 'life')
+  return q.order('date', 'DESC').all()
 })
 </script>
